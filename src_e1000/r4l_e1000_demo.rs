@@ -297,7 +297,7 @@ struct E1000DrvPrvData {
 
 impl driver::DeviceRemoval for E1000DrvPrvData {
     fn device_remove(&self) {
-        pr_info!("Rust for linux e1000 driver demo (device_remove)\n");
+        pr_err!("Rust for linux e1000 driver demo (device_remove)\n");
     }
 }
 
@@ -467,6 +467,9 @@ impl pci::Driver for E1000Drv {
     }
 
     fn remove(data: &Self::Data) {
+        // TODO(XYM): free the memory that is allocated
+        // data._netdev_reg.unregister();
+        // pci::Driver::remove(data);
         pr_info!("Rust for linux e1000 driver demo (remove)\n");
     }
 }
