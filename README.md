@@ -83,6 +83,10 @@ ip route add default via 10.0.2.1
 ping 10.0.2.2
 ```
 
+![Lab2](images/002.png)
+![Lab2](images/003.png)
+![Lab2](images/004.png)
+
 # Lab3
 1. Add helloworld.rs
 ```rust
@@ -152,11 +156,16 @@ cd ../src_e1000
 insmod rust_helloworld.ko
 ```
 plz notice that in the menuconfig, Y and the M are different
+![Lab3](images/005.png)
+![Lab3](images/006.png)
 
 
 # Lab4
 1. make sure the settings has been set correctly
 2. edit the code in the file.
+```rust
+
+```
 3. remove the module
 ```bash
 rmmod r4l_e1000_demo.ko

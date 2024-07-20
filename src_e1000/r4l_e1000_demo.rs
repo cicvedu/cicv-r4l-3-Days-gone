@@ -468,8 +468,7 @@ impl pci::Driver for E1000Drv {
 
     fn remove(data: &Self::Data) {
         // TODO(XYM): free the memory that is allocated
-        // data._netdev_reg.unregister();
-        // pci::Driver::remove(data);
+
         pr_info!("Rust for linux e1000 driver demo (remove)\n");
     }
 }
@@ -490,6 +489,7 @@ impl kernel::Module for E1000KernelMod {
 
 impl Drop for E1000KernelMod {
     fn drop(&mut self) {
+        drop(&mut self._dev);
         pr_info!("Rust for linux e1000 driver demo (exit)\n");
     }
 }
