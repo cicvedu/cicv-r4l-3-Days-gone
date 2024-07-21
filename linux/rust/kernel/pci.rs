@@ -305,6 +305,11 @@ impl Device {
         })
     }
 
+    /// Return pci_dev pointer public api
+    pub fn as_pci_ptr(&self) -> *mut bindings::pci_dev {
+        self.ptr
+    }
+
     /// Return BAR mask from the type of resource
     pub fn select_bars(&self, flags: u64) -> i32 {
         // SAFETY: By the type invariants, we know that `self.ptr` is non-null and valid.

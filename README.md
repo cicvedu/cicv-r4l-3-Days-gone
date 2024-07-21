@@ -168,13 +168,31 @@ plz notice that in the menuconfig, Y and the M are different
 # Lab4
 1. make sure the settings has been set correctly
 2. edit the code in the file.
-```rust
-
+```bash
+#See details in the r4l_e1000_demo.rs
 ```
 3. remove the module
 ```bash
+./build_image.sh
+insmod r4l_e1000_demo.ko
+ip link set eth0 up
+ip addr add broadcast 10.0.2.255 dev eth0
+ip addr add 10.0.2.15/255.255.255.0 dev eth0 
+ip route add default via 10.0.2.1
+ping 10.0.2.2
+
 rmmod r4l_e1000_demo.ko
+
+insmod r4l_e1000_demo.ko
+ip link set eth0 up
+ip addr add broadcast 10.0.2.255 dev eth0
+ip addr add 10.0.2.15/255.255.255.0 dev eth0 
+ip route add default via 10.0.2.1
+ping 10.0.2.2
 ```
+
+![](images/lab41.png)
+![](images/lab42.png)
 
 # Lab5
 1. finish the drop function 
@@ -208,3 +226,7 @@ rmmod r4l_e1000_demo.ko
   }
 ```
 ~[Lab5](images/0007.png)
+
+
+# Porject
+

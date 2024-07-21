@@ -471,6 +471,13 @@ impl Napi {
         Napi(UnsafeCell::new(bindings::napi_struct::default()))
     }
 
+    /// Disable NAPI scheduling.
+    pub fn disable(&self) {
+        unsafe {
+            bindings::napi_disable(self.0.get());
+        }
+    }
+
     /// Enable NAPI scheduling.
     pub fn enable(&self) {
         // SAFETY: The existence of a shared reference means `self.0` is valid.
