@@ -43,6 +43,7 @@ impl file::Operations for RustFile {
     fn write(_this: &Self,_file: &file::File,_reader: &mut impl kernel::io_buffer::IoBufferReader,_offset:u64,) -> Result<usize> {
         // buffer lock
         let mut conetent = _this.inner.lock();
+        let offset = _offset as usize;
         // read form the buffer[offset] to the buffer[offset + len]
         // check the length of the buffer and the reader
         let len = min(conetent.len() as usize - offset, _reader.len());
@@ -53,6 +54,7 @@ impl file::Operations for RustFile {
     fn read(_this: &Self,_file: &file::File,_writer: &mut impl kernel::io_buffer::IoBufferWriter,_offset:u64,) -> Result<usize> {
         let content = _this.inner.lock();
         // same as the above
+        let offset = _offset as usize;
         let len = min(content.len() - offset as usize, _writer.len());
         _writer.write_slice(&content[offset..offset + len])?;
         Ok(len)
