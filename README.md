@@ -24,6 +24,11 @@ default:
 	$(MAKE) -C $(KDIR) M=$$PWD
 
 ```
+
+```bash
+# Kbuild
+obj-m := r4l_e1000_demo.o
+```
 using `KDIR` variable specify the kernel source code path, we call the $PWD as current working directory(OOT module directory).
 
 We are using the kernel building system, through the command like:
@@ -170,3 +175,36 @@ plz notice that in the menuconfig, Y and the M are different
 ```bash
 rmmod r4l_e1000_demo.ko
 ```
+
+# Lab5
+1. finish the drop function 
+```rust
+  impl Drop for RustChrdev {
+      fn drop(&mut self) {
+          drop(&mut self._dev);
+          pr_info!("Rust character device sample (exit)\n");
+      }
+  }
+```
+
+2. finisht the read and write function
+```rust
+  fn write(_this: &Self,_file: &file::File,_reader: &mut impl kernel::io_buffer::IoBufferReader,_offset:u64,) -> Result<usize> {
+      // buffer lock
+      let mut conetent = _this.inner.lock();
+      // read form the buffer[offset] to the buffer[offset + len]
+      // check the length of the buffer and the reader
+      let len = min(conetent.len() as usize - offset, _reader.len());
+      _reader.read_slice(&mut conetent[offset..offset + len])?;
+      Ok(len)
+  }
+
+  fn read(_this: &Self,_file: &file::File,_writer: &mut impl kernel::io_buffer::IoBufferWriter,_offset:u64,) -> Result<usize> {
+      let content = _this.inner.lock();
+      // same as the above
+      let len = min(content.len() - offset as usize, _writer.len());
+      _writer.write_slice(&content[offset..offset + len])?;
+      Ok(len)
+  }
+```
+~[Lab5](images/0007.png)
