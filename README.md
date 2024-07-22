@@ -191,8 +191,8 @@ ip route add default via 10.0.2.1
 ping 10.0.2.2
 ```
 
-![](images/lab41.png)
-![](images/lab42.png)
+![lab41](images/lab41.png)
+![lab42](images/lab42.png)
 
 # Lab5
 1. finish the drop function 
@@ -225,7 +225,7 @@ ping 10.0.2.2
       Ok(len)
   }
 ```
-~[Lab5](images/0007.png)
+![Lab5](images/007.png)
 
 
 # Porject
